@@ -13,7 +13,7 @@ module "task-traefik" {
 
   docker_labels = {
     "traefik.enable"                                  = "true",
-    "traefik.http.routers.mydashboard.rule"           = "Host(`traefik.${var.project_domain}`)",
+    "traefik.http.routers.mydashboard.rule"           = "Host(`traefik.${var.project_env}.${var.project_domain}`)",
     "traefik.http.routers.mydashboard.service"        = "api@internal",
     "traefik.http.routers.mydashboard.middlewares"    = "myauth",
     "traefik.http.middlewares.myauth.basicauth.users" = "adam:$2y$05$IuhWQCI7VwQCBrAYU/5siet7wBdySzafji5BjK2.z8of3wPNEE6rC"

@@ -92,7 +92,7 @@ module "task-api-gateway" {
     "traefik.http.routers.api-gateway.entrypoints"                 = "websecure",
     "traefik.http.routers.api-gateway.tls.certresolver"            = "letsencrypt",
     "traefik.http.routers.api-gateway.service"                     = "api-gateway",
-    "traefik.http.routers.api-gateway.rule"                        = "Host(`api-gateway.${var.project_domain}`) && PathPrefix(`/`)",
+    "traefik.http.routers.api-gateway.rule"                        = "Host(`api-gateway.${var.project_env}.${var.project_domain}`) && PathPrefix(`/`)",
     "traefik.http.services.api-gateway.loadbalancer.server.port"   = "3000",
     "traefik.http.services.api-gateway.loadbalancer.server.scheme" = "http"
   }

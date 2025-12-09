@@ -92,7 +92,7 @@ module "task-status-service" {
     "traefik.http.routers.status-service.entrypoints"                 = "websecure",
     "traefik.http.routers.status-service.tls.certresolver"            = "letsencrypt",
     "traefik.http.routers.status-service.service"                     = "status-service",
-    "traefik.http.routers.status-service.rule"                        = "Host(`status-service.${var.project_domain}`) && PathPrefix(`/`)",
+    "traefik.http.routers.status-service.rule"                        = "Host(`status-service.${var.project_env}.${var.project_domain}`) && PathPrefix(`/`)",
     "traefik.http.services.status-service.loadbalancer.server.port"   = "5001",
     "traefik.http.services.status-service.loadbalancer.server.scheme" = "http"
   }

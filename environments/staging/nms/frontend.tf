@@ -43,7 +43,7 @@ module "codepipeline-frontend" {
       value = "."
     },
     { name  = "VITE_API_BASE_URL"
-      value = "https://api-gateway.${var.project_domain}"
+      value = "https://api-gateway.${var.project_env}.${var.project_domain}"
     },
     { name  = "DOCKERFILE_PATH"
       value = "./Dockerfile"
