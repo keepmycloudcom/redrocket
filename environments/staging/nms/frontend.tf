@@ -77,7 +77,7 @@ module "task-frontend" {
     "traefik.http.routers.frontend.entrypoints"                 = "websecure",
     "traefik.http.routers.frontend.tls.certresolver"            = "letsencrypt",
     "traefik.http.routers.frontend.service"                     = "frontend",
-    "traefik.http.routers.frontend.rule"                        = "Host(`${var.project_domain}`) && PathPrefix(`/`)",
+    "traefik.http.routers.frontend.rule"                        = "Host(`${var.project_env}.${var.project_domain}`) && PathPrefix(`/`)",
     "traefik.http.services.frontend.loadbalancer.server.port"   = "80",
     "traefik.http.services.frontend.loadbalancer.server.scheme" = "http"
   }
