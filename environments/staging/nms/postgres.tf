@@ -24,7 +24,7 @@ module "task-postgres" {
   name                      = "postgres"
   task_container_image      = "postgres:15-alpine"
   container_name            = "postgres"
-  task_definition_cpu       = 512
+  task_definition_cpu       = 512  
   task_definition_memory    = 1024
   docker_labels = {
     "SERVICE_NAME" = "postgres"

@@ -83,7 +83,7 @@ module "task-status-service" {
   task_container_image      = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.project_env}-status-service:${var.project_env}-latest"
   cloudwatch_log_group_name = "/${var.project_env}/${var.project_name}/status-service"
   container_name            = "status-service"
-  task_definition_cpu       = 1000
+  task_definition_cpu       = 512  
   task_definition_memory    = 1024
   task_environment = local.status-service_task_environment
   docker_labels = {
