@@ -69,7 +69,7 @@ module "task-registrator" {
   name                      = "registrator"
   task_container_image      = "gliderlabs/registrator:master"
   container_name            = "registrator"
-  task_definition_cpu       = 250
+  task_definition_cpu       = 256
   task_definition_memory    = 512
 
   task_container_command = ["-cleanup=true", "-internal=true", "-explicit=true", "-resync=1000", "consul://consul.service.${var.project_env}.${var.consul_domain}:8500"]

@@ -68,7 +68,7 @@ module "task-frontend" {
   task_container_image      = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.project_env}-frontend:${var.project_env}-latest"
   cloudwatch_log_group_name = "/${var.project_env}/${var.project_name}/frontend"
   container_name            = "frontend"
-  task_definition_cpu       = 512
+  task_definition_cpu       = 256
   task_definition_memory    = 512
 
   docker_labels = {
