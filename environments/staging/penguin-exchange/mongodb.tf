@@ -7,8 +7,8 @@ module "task-mongodb" {
   name                      = "mongodb"
   task_container_image      = "mongo:latest"
   container_name            = "mongodb"
-  task_definition_cpu       = 1000
-  task_definition_memory    = 1000
+  task_definition_cpu       = 1024  
+  task_definition_memory    = 2048
   network_mode              = "bridge"
   docker_labels = {
     "SERVICE_NAME" = "mongodb"
