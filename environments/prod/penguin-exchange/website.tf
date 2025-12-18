@@ -1,6 +1,6 @@
 ### Get secrets from AWS Secrets store 
 data "aws_secretsmanager_secret" "website-secrets" {
-  arn = "arn:aws:secretsmanager:eu-central-1:218885890069:secret:staging/nms/backend-G52G4k"
+  arn = "arn:aws:secretsmanager:eu-central-1:218885890069:secret:prod/penguin-exchange/backend-DAW59B"
 }
 
 data "aws_secretsmanager_secret_version" "website-current" {
@@ -61,12 +61,13 @@ module "codepipeline-website" {
       value = "."
     },
     { name  = "DOCKERFILE_PATH"
-      value = "./Dockerfile.website"
+      value = "./Dockerfile"
   }]
   project_name      = var.project_name
   repo_name         = "red-rocket-software/Money4u"
   codestar_conector = "redrocket"
   service_name      = "website"
+  compute_type      = "BUILD_GENERAL1_LARGE"
   ecs_cluster       = module.ecs.cluster_name
   aws_account       = var.aws_account
   aws_region        = var.aws_region
@@ -83,8 +84,8 @@ module "task-website" {
   task_container_image      = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.project_env}-website:${var.project_env}-latest"
   cloudwatch_log_group_name = "/${var.project_env}/${var.project_name}/website"
   container_name            = "website"
-  task_definition_cpu       = 512  
-  task_definition_memory    = 1024
+  task_definition_cpu       = 200  
+  task_definition_memory    = 4096
   task_environment = local.website_task_environment
   docker_labels = {
     "SERVICE_NAME"                                                 = "website",
