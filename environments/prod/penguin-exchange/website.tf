@@ -85,7 +85,7 @@ module "task-website" {
   cloudwatch_log_group_name = "/${var.project_env}/${var.project_name}/website"
   container_name            = "website"
   task_definition_cpu       = 1024  
-  task_definition_memory    = 2048
+  task_definition_memory    = 1024
   task_environment = local.website_task_environment
   docker_labels = {
     "SERVICE_NAME"                                                 = "website",
