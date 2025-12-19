@@ -1,0 +1,79 @@
+module "task-vpn" {
+  source                    = "git::https://github.com/keepmycloudcom/modules-ecs.git//task?ref=v1.0.0"
+  aws_region                = var.aws_region
+  project_env               = var.project_env
+  cloudwatch_log_group_name = "/${var.project_env}/${var.project_name}/vpn"
+  basename                  = local.basename
+  name                      = "vpn"
+  task_container_image      = "registry.gitlab.com/betacompany/freeje/core/zerotier-vpn:latest"
+  credentials_parameter     = "arn:aws:secretsmanager:eu-central-1:890304001189:secret:dev/telecomax/gitlab-xw14Kq"
+  container_name            = "vpn"
+  task_definition_cpu       = 128
+  task_definition_memory    = 128
+
+  docker_labels = {
+    "SERVICE_NAME" = "vpn"
+  }
+  network_mode         = "bridge"
+  privileged           = true
+  add_linux_parameters = ["NET_ADMIN", "SYS_ADMIN", "NET_RAW"]
+  container_port_mappings = [{
+    hostPort      = 9993
+    containerPort = 9993
+    protocol      = "tcp"
+  }]
+  task_environment = local.backend_task_environment
+
+  volume = {
+    zerotier = {
+      name = "zerotier"
+      docker_volume_configuration = [{
+        scope         = "shared"
+        autoprovision = true
+        driver        = "local"
+      }]
+    },
+    tun = {
+      name      = "tun"
+      host_path = "/dev/net/tun"
+    }
+  }
+
+  task_mount_points = [
+    {
+      containerPath = "/var/lib/zerotier-one"
+      readOnly      = false
+      sourceVolume  = "zerotier"
+    },
+    {
+      containerPath = "/dev/net/tun"
+      sourceVolume  = "tun"
+      readOnly      = false
+  }]
+  tags = local.base_tags
+}
+
+# Service
+module "service-vpn" {
+  source      = "git::https://github.com/keepmycloudcom/modules-ecs.git//service?ref=v1.0.0"
+  aws_region  = var.aws_region
+  project_env = var.project_env
+
+  name                = "vpn"
+  ecs_cluster         = module.ecs.id
+  container_name      = "vpn"
+  scheduling_strategy = "DAEMON"
+
+  ecs_task_definition = module.task-vpn.arn
+
+  tags = local.base_tags
+}
+
+# CloudWatch Log Group
+resource "aws_cloudwatch_log_group" "vpn-loggroup" {
+  name              = "/${var.project_env}/${var.project_name}/vpn"
+  retention_in_days = "3"
+  tags = merge(local.base_tags, {
+    Name = "/${var.project_env}/${var.project_name}/vpn"
+  })
+}
