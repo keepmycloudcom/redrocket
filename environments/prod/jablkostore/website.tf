@@ -1,6 +1,6 @@
 ### Get secrets from AWS Secrets store 
 data "aws_secretsmanager_secret" "website-secrets" {
-  arn = "arn:aws:secretsmanager:eu-central-1:218885890069:secret:prod/penguin-exchange/backend-DAW59B"
+  arn = "arn:aws:secretsmanager:eu-central-1:218885890069:secret:prod/jablkostore/backend-6HfyN7"
 }
 
 data "aws_secretsmanager_secret_version" "website-current" {
@@ -64,7 +64,7 @@ module "codepipeline-website" {
       value = "./Dockerfile"
   }]
   project_name      = var.project_name
-  repo_name         = "red-rocket-software/Money4u"
+  repo_name         = "red-rocket-software/jablko-pl"
   codestar_conector = "redrocket"
   service_name      = "website"
   compute_type      = "BUILD_GENERAL1_LARGE"
@@ -163,3 +163,4 @@ resource "aws_iam_role_policy_attachment" "s3" {
   role       = module.task-website.task_role.name
   policy_arn = aws_iam_policy.s3.arn
 }
+
