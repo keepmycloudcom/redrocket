@@ -96,16 +96,16 @@ module "task-api-gateway" {
     "traefik.http.services.api-gateway.loadbalancer.server.port"   = "3000",
     "traefik.http.services.api-gateway.loadbalancer.server.scheme" = "http"
   }
-#  task_health_check = {
-#    "retries" = "3",
-#    "command" : [
-#      "CMD-SHELL",
-#      "curl -f -k http://localhost:3000/ || exit 1"
-#    ],
-#    "timeout" : 5,
-#    "interval" : 30,
-#    "startPeriod" : 5
-#  }
+  task_health_check = {
+    "retries" = "3",
+    "command" : [
+      "CMD-SHELL",
+      "curl -f -k http://localhost:3000/ || exit 1"
+    ],
+    "timeout" : 5,
+    "interval" : 30,
+    "startPeriod" : 5
+  }
   network_mode = "bridge"
 
 
