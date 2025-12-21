@@ -2,12 +2,12 @@
 locals {
   aws_region     = "eu-central-1"
   aws_account    = "218885890069"
-  project_domain = "redrocket.software"
+  project_domain = "monitoring.redrocket.software"
   consul_domain  = "monitoring.redrocket.local"
   
   project_name   = "redrocket-monitoring"
   tfstate_region = local.aws_region
-  tfstate_bucket = lower("tfstate-project.${local.aws_region}.${local.project_domain}")
+  tfstate_bucket = lower("tfstate.${local.aws_region}.${local.project_domain}")
   tfstate_table  = lower("tfstate-locks.${local.aws_region}.${local.project_domain}")
 }
 

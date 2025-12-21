@@ -6,8 +6,8 @@ module "task-prometheus" {
   name                      = "prometheus"
   task_container_image      = "prom/prometheus:v2.31.1"
   container_name            = "prometheus"
-  task_definition_cpu       = 2048
-  task_definition_memory    = 2048
+  task_definition_cpu       = 1024
+  task_definition_memory    = 1024
   task_container_command    = ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.path=/prometheus", "--storage.tsdb.retention.time=60d", "--web.console.libraries=/usr/share/prometheus/console_libraries", "--web.console.templates=/usr/share/prometheus/consoles"]
 
   docker_labels = {

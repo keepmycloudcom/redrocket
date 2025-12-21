@@ -1,18 +1,10 @@
-### ECR
-module "ecr-calculator" {
-  source   = "git::https://github.com/keepmycloudcom/modules-ecr.git?ref=v1.0.0"
-  basename = local.basename
-  names    = ["calculator"]
-  tags     = local.base_tags
-}
-
 module "task-calculator" {
   source                    = "git::https://github.com/keepmycloudcom/modules-ecs.git//task?ref=v1.0.0"
   aws_region                = var.aws_region
   project_env               = var.project_env
   basename                  = local.basename
   name                      = "calculator"
-  task_container_image      = "${var.aws_account}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.project_name}-${var.project_env}-calculator:${var.project_env}-2"
+  task_container_image      = "public.ecr.aws/k8i3k5l8/kmc/calculator:latest"
   container_name            = "calculator"
   task_definition_cpu       = 128
   task_definition_memory    = 128
