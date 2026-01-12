@@ -1,0 +1,16 @@
+### S3 Bucket: api data
+module "s3-backups" {
+  source         = "git::https://github.com/keepmycloudcom/modules-s3-bucket.git?ref=v1.0.0"
+  project_domain = var.project_domain
+  name           = "${local.basename}-backups"
+  bucket         = lower("${var.project_env}-backups-${var.aws_region}-${var.project_domain}")
+  tags           = local.base_tags
+}
+
+module "s3-frontend" {
+  source         = "git::https://github.com/keepmycloudcom/modules-s3-bucket.git?ref=v1.0.0"
+  project_domain = var.project_domain
+  name           = "${local.basename}-frontend"
+  bucket         = lower("${var.project_env}-frontend-${var.aws_region}-${var.project_domain}")
+  tags           = local.base_tags
+}
