@@ -53,17 +53,28 @@ module "codepipeline-frontend" {
       name  = "IMAGE_REPO_NAME"
       value = "${var.project_name}-${var.project_env}-frontend"
     },
-    { name  = "CONTEXT"
+    { 
+      name  = "CONTEXT"
       value = "frontend"
     },
     {
       name  = "BUILD_PATH"
       value = "."
     },
-    { name  = "VITE_API_BASE_URL"
-      value = "https://api-gateway.${var.project_env}.${var.project_domain}"
+    { 
+      name  = "NEXT_PUBLIC_PAYLOAD_URL"
+      value = "https://www.${var.project_domain}"
     },
-    { name  = "DOCKERFILE_PATH"
+    { 
+      name  = "NEXT_PUBLIC_API_URL"
+      value = "https://api.${var.project_domain}"
+    },
+    { 
+      name  = "NEXT_PUBLIC_SERVER_URL"
+      value = "https://www.${var.project_domain}"
+    },
+    { 
+      name  = "DOCKERFILE_PATH"
       value = "./Dockerfile"
   }]
   project_name      = var.project_name
